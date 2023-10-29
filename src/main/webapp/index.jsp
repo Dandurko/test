@@ -2,10 +2,8 @@
 
 <head>
     <script>
-        const evtSource = new EventSource("http://localhost:8080/bakalarkaProjekt/webapi/SSE");
-        evtSource.addEventListener("message", function(e) {
-        console.log(e.data)
-      })
+      /*https://www.tutorialspoint.com/websockets/websockets_events_actions.htm*/
+let socket =new WebSocket('ws://localhost:8080/bakalarkaProjekt/giveValueToProxy/Denko');
     </script>
 </head>
 
