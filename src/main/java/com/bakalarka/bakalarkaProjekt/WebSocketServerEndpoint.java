@@ -12,11 +12,11 @@ import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
 import jakarta.websocket.server.ServerEndpoint;
 
-@ServerEndpoint(value = "/giveValueToProxy/{username}")
-public class Test {
+@ServerEndpoint(value = "/WebSocket/{username}")
+public class WebSocketServerEndpoint {
 
 	private Session session;
-	private static Set<Test> chatEndpoints = new CopyOnWriteArraySet<>();
+	private static Set<WebSocketServerEndpoint> chatEndpoints = new CopyOnWriteArraySet<>();
 	private static HashMap<String, String> users = new HashMap<>();
 
 	@OnOpen
@@ -56,7 +56,7 @@ public class Test {
 	}
 
 	private void broadcast(String message) {
-		for (Test endpoint : chatEndpoints) {
+		for (WebSocketServerEndpoint endpoint : chatEndpoints) {
 			synchronized (endpoint) {
 				try {
 					endpoint.session.getBasicRemote().sendText(message);

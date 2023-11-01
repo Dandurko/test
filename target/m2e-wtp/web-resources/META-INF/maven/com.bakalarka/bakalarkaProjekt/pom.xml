@@ -74,6 +74,11 @@
 			<!-- artifactId>jersey-container-servlet</artifactId -->
 		</dependency>
 		<dependency>
+    <groupId>com.github.ben-manes.caffeine</groupId>
+    <artifactId>caffeine</artifactId>
+    <version>2.5.5</version>
+</dependency>
+		<dependency>
 			<groupId>org.glassfish.jersey.inject</groupId>
 			<artifactId>jersey-hk2</artifactId>
 		</dependency>
@@ -81,6 +86,13 @@
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-sse</artifactId>
 		</dependency>
+		        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <version>2.0</version>
+            <scope>provided</scope>
+        </dependency>
+        
 		<!-- uncomment this to get JSON support
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
