@@ -2,6 +2,9 @@ package com.bakalarka.bakalarkaProjekt;
 
 import java.net.URI;
 
+import javax.enterprise.context.ApplicationScoped;
+
+import jakarta.inject.Inject;
 import jakarta.websocket.ClientEndpoint;
 import jakarta.websocket.CloseReason;
 import jakarta.websocket.ContainerProvider;
@@ -10,12 +13,21 @@ import jakarta.websocket.OnMessage;
 import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
 import jakarta.websocket.WebSocketContainer;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.sse.Sse;
 
 @ClientEndpoint
 public class WebSocketClientEndpoint {
+	
+	public  SSEProxy proxy ;
+	   @Context
+	    private Sse sse ;
 	 Session userSession = null;
 	    private MessageHandler messageHandler;
-    public WebSocketClientEndpoint(URI endpointURI) {
+	    public WebSocketClientEndpoint() {
+	        // Konštruktor
+	    }
+    public void makeCon(URI endpointURI) {
         try {
             WebSocketContainer container = ContainerProvider
                     .getWebSocketContainer();
@@ -24,7 +36,9 @@ public class WebSocketClientEndpoint {
             throw new RuntimeException(e);
         }
     }
-    
+    public void setProxy(SSEProxy proxy) {
+    	this.proxy = proxy;
+    }
     /**
      * Callback hook for Connection open events.
      * 
@@ -60,6 +74,7 @@ public class WebSocketClientEndpoint {
     public void onMessage(String message) {
         if (this.messageHandler != null)
             this.messageHandler.handleMessage(message);
+    	proxy.sendEvents(message);
     }
  
     /**
